@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Price Pridiction</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/style.css') }}">
+
+</head>
+<body>
+    
+<!-- header section starts  -->
+
+<header>
+
+    <a href="#" class="logo"><span>real</span>Estate</a>
+
+    <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#services">services</a>
+        <a href="#featured">featured</a>
+        <a href="#agents">agents</a>
+        <a href="#contact">contact</a>
+    </nav>
+
+    <div class="icons">
+        <div id="menu-bars" class="fas fa-bars"></div>
+        <a href="#" class="fas fa-heart"></a>
+        <a href="#" class="fas fa-user"></a>
+    </div>
+
+</header>
+
+<!-- header section ends -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+    <div>
+
+    
+    <form action="">
+
+        <h3>find your perfect home in mumbai</h3>
+
+        <div class="buttons-container">
+            
+            <a href="#" class="btn">for sell</a>
+        </div>
+
+        <div class="inputBox">
+            <select name="location" id="location">
+                <option value="" disabled hidden selected>Location</option>
+                {% for location in locations %}
+                <option value="{{location}}">{{location}}</option>
+                {% endfor%}
+            </select>
+         
+            <select name="sales" id="sales">
+                <option value="" disabled hidden selected>property type</option>
+                <option value="1">New</option>
+                <option value="0">Resale</option>
+            </select>
+            
+            
+            <select name="bhk" id="bhk">
+                <option value="" disabled hidden selected>bedrooms</option>
+                <option value="1">1 bedroom</option>
+                <option value="2">2 bedroom</option>
+                <option value="3">3 bedroom</option>
+                <option value="4">4 bedroom</option>
+            </select>
+
+            
+            <input type="number" id="area" name="area" placeholder="Enter total area" required><br>
+
+            <div style="width: 650px; display: flex;">
+            <label style="
+border: 0.1rem solid #333;
+box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 10%);
+font-size: 1.5rem;
+padding: 1rem;
+text-transform: none;
+width: 650px;">Amenitites :</label></div>
+            
+            <div>
+            <input style="transform: scale(1.5);" type="checkbox" name="car" value="1"><span style="font-size: 18px;margin: 5px;">Car Parking</span><br>      
+            <input style="transform: scale(1.5);" type="checkbox" name="lift" value="1"><span style="font-size: 18px;margin: 5px;">Lift</span><br> 
+            <input style="transform: scale(1.5);" type="checkbox" name="maintenance" value="1"><span style="font-size: 18px;margin: 5px;">Maintenance Staff</span><br> 
+            <input style="transform: scale(1.5);" type="checkbox" name="clubhouse" value="1"><span style="font-size: 18px;margin: 5px;">Clubhouse</span><br> 
+            <input style="transform: scale(1.5);" type="checkbox" name="security" value="1"><span style="font-size: 18px;margin: 5px;">24x7 Security</span><br> 
+            <input style="transform: scale(1.5);" type="checkbox" name="gas" value="1"><span style="font-size: 18px;margin: 5px;">Gas Connection</span><br> 
+           </div>
+        </div>
+
+        <button type="submit" onclick="send_data()" value="search property" class="btn">Predict Price</button>
+
+    </form>
+
+    <div class="predict" style="background: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 17px;">
+        <h3><span id="prediction"></span></h3>
+    </div>
+</div>
+</section>
+
+<!-- home section ends -->
+
+
+<!-- featured section starts  -->
+
+<section class="featured" id="featured">
+
+    <h1 class="heading"> <span>featured</span> properties </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <div class="image-container">
+                <img src=" {{ url_for('static', filename = 'images/img-1.jpg')}}" alt="">
+                <div class="info">
+                    <h3>3 days ago</h3>
+                    <h3>for rent</h3>
+                </div>
+                <div class="icons">
+                    <a href="#" class="fas fa-film"><h3>1</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>4</h3></a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3>$25,000/mo</h3>
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-envelope"></a>
+                    <a href="#" class="fas fa-phone"></a>
+                </div>
+                <div class="location">
+                    <h3>modern apartments</h3>
+                    <p>jogeshwari west, mumbai, india - 400104</p>
+                </div>
+                <div class="details">
+                    <h3> <i class="fas fa-expand"></i> 3500 sqft </h3>
+                    <h3> <i class="fas fa-bed"></i> 3 beds </h3>
+                    <h3> <i class="fas fa-bath"></i> 2 baths </h3>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">request info</a>
+                    <a href="#" class="btn">view details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image-container">
+                <img src=" {{ url_for('static', filename = 'images/img-2.jpg')}}" alt="">
+                <div class="info">
+                    <h3>6 days ago</h3>
+                    <h3>for sell</h3>
+                </div>
+                <div class="icons">
+                    <a href="#" class="fas fa-film"><h3>2</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>7</h3></a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3>$25,000/mo</h3>
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-envelope"></a>
+                    <a href="#" class="fas fa-phone"></a>
+                </div>
+                <div class="location">
+                    <h3>modern apartments</h3>
+                    <p>jogeshwari west, mumbai, india - 400104</p>
+                </div>
+                <div class="details">
+                    <h3> <i class="fas fa-expand"></i> 3500 sqft </h3>
+                    <h3> <i class="fas fa-bed"></i> 3 beds </h3>
+                    <h3> <i class="fas fa-bath"></i> 2 baths </h3>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">request info</a>
+                    <a href="#" class="btn">view details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image-container">
+                <img src=" {{ url_for('static', filename = 'images/img-3.jpg')}}" alt="">
+                <div class="info">
+                    <h3>1 days ago</h3>
+                    <h3>for rent</h3>
+                </div>
+                <div class="icons">
+                    <a href="#" class="fas fa-film"><h3>1</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>6</h3></a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3>$25,000/mo</h3>
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-envelope"></a>
+                    <a href="#" class="fas fa-phone"></a>
+                </div>
+                <div class="location">
+                    <h3>modern apartments</h3>
+                    <p>jogeshwari west, mumbai, india - 400104</p>
+                </div>
+                <div class="details">
+                    <h3> <i class="fas fa-expand"></i> 3500 sqft </h3>
+                    <h3> <i class="fas fa-bed"></i> 3 beds </h3>
+                    <h3> <i class="fas fa-bath"></i> 2 baths </h3>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">request info</a>
+                    <a href="#" class="btn">view details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image-container">
+                <img src=" {{ url_for('static', filename = 'images/img-4.jpg')}}" alt="">
+                <div class="info">
+                    <h3>9 days ago</h3>
+                    <h3>for rent</h3>
+                </div>
+                <div class="icons">
+                    <a href="#" class="fas fa-film"><h3>2</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>6</h3></a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3>$25,000/mo</h3>
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-envelope"></a>
+                    <a href="#" class="fas fa-phone"></a>
+                </div>
+                <div class="location">
+                    <h3>modern apartments</h3>
+                    <p>jogeshwari west, mumbai, india - 400104</p>
+                </div>
+                <div class="details">
+                    <h3> <i class="fas fa-expand"></i> 3500 sqft </h3>
+                    <h3> <i class="fas fa-bed"></i> 3 beds </h3>
+                    <h3> <i class="fas fa-bath"></i> 2 baths </h3>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">request info</a>
+                    <a href="#" class="btn">view details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image-container">
+                <img src=" {{ url_for('static', filename = 'images/img-5.jpg')}}" alt="">
+                <div class="info">
+                    <h3>10 days ago</h3>
+                    <h3>for sell</h3>
+                </div>
+                <div class="icons">
+                    <a href="#" class="fas fa-film"><h3>3</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>8</h3></a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3>$25,000/mo</h3>
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-envelope"></a>
+                    <a href="#" class="fas fa-phone"></a>
+                </div>
+                <div class="location">
+                    <h3>modern apartments</h3>
+                    <p>jogeshwari west, mumbai, india - 400104</p>
+                </div>
+                <div class="details">
+                    <h3> <i class="fas fa-expand"></i> 3500 sqft </h3>
+                    <h3> <i class="fas fa-bed"></i> 3 beds </h3>
+                    <h3> <i class="fas fa-bath"></i> 2 baths </h3>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">request info</a>
+                    <a href="#" class="btn">view details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image-container">
+                <img src=" {{ url_for('static', filename = 'images/img-6.jpg')}}" alt="">
+                <div class="info">
+                    <h3>3 days ago</h3>
+                    <h3>for sell</h3>
+                </div>
+                <div class="icons">
+                    <a href="#" class="fas fa-film"><h3>1</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>4</h3></a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3>$25,000/mo</h3>
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-envelope"></a>
+                    <a href="#" class="fas fa-phone"></a>
+                </div>
+                <div class="location">
+                    <h3>modern apartments</h3>
+                    <p>jogeshwari west, mumbai, india - 400104</p>
+                </div>
+                <div class="details">
+                    <h3> <i class="fas fa-expand"></i> 3500 sqft </h3>
+                    <h3> <i class="fas fa-bed"></i> 3 beds </h3>
+                    <h3> <i class="fas fa-bath"></i> 2 baths </h3>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">request info</a>
+                    <a href="#" class="btn">view details</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</section>
+
+<!-- featured section ends -->
+
+<!-- agents section starts  -->
+
+<section class="agents" id="agents">
+
+    <h1 class="heading"> professional <span>agents</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <a href="#" class="fas fa-envelope"></a>
+            <a href="#" class="fas fa-phone"></a>
+            <img src=" {{ url_for('static', filename = 'images/pic-1.png')}}" alt="">
+            <h3>john deo</h3>
+            <span>agent</span>
+            <div class="share">
+                <a href="#" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+        <div class="box">
+            <a href="#" class="fas fa-envelope"></a>
+            <a href="#" class="fas fa-phone"></a>
+            <img src=" {{ url_for('static', filename = 'images/pic-2.png')}}" alt="">
+            <h3>john deo</h3>
+            <span>agent</span>
+            <div class="share">
+                <a href="#" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+        <div class="box">
+            <a href="#" class="fas fa-envelope"></a>
+            <a href="#" class="fas fa-phone"></a>
+            <img src=" {{ url_for('static', filename = 'images/pic-3.png')}}" alt="">
+            <h3>john deo</h3>
+            <span>agent</span>
+            <div class="share">
+                <a href="#" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+        <div class="box">
+            <a href="#" class="fas fa-envelope"></a>
+            <a href="#" class="fas fa-phone"></a>
+            <img src=" {{ url_for('static', filename = 'images/pic-4.png')}}" alt="">
+            <h3>john deo</h3>
+            <span>agent</span>
+            <div class="share">
+                <a href="#" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- agents section ends -->
+
+<!-- contact section starts  -->
+
+<section class="contact" id="contact">
+
+<h1 class="heading"> <span>contact</span> us </h1>
+
+<div class="icons-container">
+
+    <div class="icons">
+        <img src=" {{ url_for('static', filename = 'images/icon-1.png')}}" alt="">
+        <h3>phone number</h3>
+        <p>+123-456-7890</p>
+        <p>+111-222-3333</p>
+    </div>
+
+    <div class="icons">
+        <img src=" {{ url_for('static', filename = 'images/icon-2.png')}}" alt="">
+        <h3>email address</h3>
+        <p>manjuchashreya27@gmail.com</p>
+        <p>muskan80525@gmail.com</p>
+        <p>hrishitakumar@gmail.com</p>
+    </div>
+
+     <div class="icons">
+        <img src=" {{ url_for('static', filename = 'images/icon-3.png')}}" alt="">
+        <h3>office address</h3>
+        <p>jogeshwari, mumbai, india - 400104</p>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <form action="">
+        <div class="inputBox">
+            <input type="text" placeholder="name">
+            <input type="number" placeholder="number">
+        </div>
+        <div class="inputBox">
+            <input type="email" placeholder="email">
+            <input type="text" placeholder="subject">
+        </div>
+        <textarea name="" placeholder="message" id="" cols="30" rows="10"></textarea>
+        <input type="submit" value="send message" class="btn">
+    </form>
+
+    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1626697480414!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+
+</div>
+
+</section>
+
+<!-- contact section ends -->
+
+
+<!-- javascript part  -->
+<script>
+
+let menu = document.querySelector('#menu-bars');
+let navbar = document.querySelector('.navbar');
+
+menu.onclick = () =>{
+    navbar.classList.toggle('active');
+    menu.classList.toggle('fa-times');
+}
+
+window.onscroll = () =>{
+    navbar.classList.remove('active');
+    menu.classList.remove('fa-times');
+}
+
+
+
+
+    function form_handler(event){
+        event.preventDefault(); //Supresses the default behavior
+    }
+
+
+    function send_data(){
+        document.querySelector('form').addEventListener('submit',form_handler);
+
+        var fd = new FormData(document.querySelector('form'));
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST','/predict',true);
+        document.getElementById('prediction').innerHTML = "Wait Predicting Price!..."
+        xhr.onreadystatechange= function(){
+            if(xhr.readyState == XMLHttpRequest.DONE){
+                document.getElementById('prediction').innerHTML="Prediction: Rs."+xhr.responseText+" in lakhs";
+            }
+        };
+
+        xhr.onload=function(){};
+        xhr.send(fd);
+    }
+    </script>
+
+</script>
+
+</body>
+</html>
